@@ -20,11 +20,11 @@ class PokemonListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pokemonTableView.register(UINib(nibName: "PokemonViewCell", bundle: nil), forCellReuseIdentifier: "pokemonCell")
-        pokemonTableView.dataSource = self
-        pokemonTableView.delegate = self
-        loadingIndicatorView.hidesWhenStopped = true
-        loadingIndicatorView.startAnimating()
+        //pokemonTableView.register(UINib(nibName: "PokemonViewCell", bundle: nil), forCellReuseIdentifier: "pokemonCell")
+        //pokemonTableView.dataSource = self
+        //pokemonTableView.delegate = self
+        //loadingIndicatorView.hidesWhenStopped = true
+        //loadingIndicatorView.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0){
             self.loadPokemons()
         }
@@ -32,13 +32,13 @@ class PokemonListViewController: UIViewController {
     }
     
     func loadPokemons(){
-        let urlBase = "https://pokeapi.co/api/v2/"
-        let listPokemonEndPoint = URL.init(string: "\(urlBase)pokemon?limit=100000&offset=0")!
+        let urlBase = "https://www.superheroapi.com/api.php/423212276549393/1"
+        let listPokemonEndPoint = URL.init(string: "\(urlBase)")!
         let task = URLSession.shared.dataTask(with: listPokemonEndPoint){data, response, error in
             if let data = data {
                 let jsonDecoder = JSONDecoder()
-                let result = try! jsonDecoder.decode(PokemonList.self, from: data)
-                self.pokemons = result.results
+                let result = try! jsonDecoder.decode(Heroes.self, from: data)
+                print(result)
                 DispatchQueue.main.sync {
                     self.containerLoadingView.isHidden = true
                     self.loadingIndicatorView.stopAnimating()
